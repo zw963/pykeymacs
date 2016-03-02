@@ -21,13 +21,14 @@ def get_pressed_modifiers():
 
 class Mode(Enum):
 
-    GLOBAL, CONTROL_X, CONTROL_Q = range(3)
+    GLOBAL, CONTROL_X, CONTROL_Q, CAPSLOCK_MOD = range(4)
 
     def get_map(self):
         return {
             Mode.GLOBAL: _GLOBAL_MAP,
             Mode.CONTROL_X: _CONTROL_X_MAP,
-            Mode.CONTROL_Q: _CONTROL_Q_MAP
+            Mode.CONTROL_Q: _CONTROL_Q_MAP,
+            Mode.CAPSLOCK_MOD: _CAPSLOCK_MOD_MAP
         }[self]
 
 
@@ -54,47 +55,48 @@ def set_mark(mark_set):
 
 _GLOBAL_MAP = {
 
-    Combo(Modifier.CONTROL, Key.B): with_mark(Key.LEFT),
-    Combo(Modifier.CONTROL, Key.F): with_mark(Key.RIGHT),
-    Combo(Modifier.CONTROL, Key.P): with_mark(Key.UP),
-    Combo(Modifier.CONTROL, Key.N): with_mark(Key.DOWN),
+    # Combo(Modifier.CONTROL, Key.B): with_mark(Key.LEFT),
+    # Combo(Modifier.CONTROL, Key.F): with_mark(Key.RIGHT),
+    # Combo(Modifier.CONTROL, Key.P): with_mark(Key.UP),
+    # Combo(Modifier.CONTROL, Key.N): with_mark(Key.DOWN),
 
-    Combo(Modifier.ALT, Key.B): with_mark(Combo(Modifier.CONTROL, Key.LEFT)),
-    Combo(Modifier.ALT, Key.F): with_mark(Combo(Modifier.CONTROL, Key.RIGHT)),
+    # Combo(Modifier.ALT, Key.B): with_mark(Combo(Modifier.CONTROL, Key.LEFT)),
+    # Combo(Modifier.ALT, Key.F): with_mark(Combo(Modifier.CONTROL, Key.RIGHT)),
 
-    Combo(Modifier.CONTROL, Key.A): with_mark(Key.HOME),
-    Combo(Modifier.CONTROL, Key.E): with_mark(Key.END),
+    # Combo(Modifier.CONTROL, Key.A): with_mark(Key.HOME),
+    # Combo(Modifier.CONTROL, Key.E): with_mark(Key.END),
 
-    Combo(Modifier.ALT, Key.V): with_mark(Key.PAGE_UP),
-    Combo(Modifier.CONTROL, Key.V): with_mark(Key.PAGE_DOWN),
+    # Combo(Modifier.ALT, Key.V): with_mark(Key.PAGE_UP),
+    # Combo(Modifier.CONTROL, Key.V): with_mark(Key.PAGE_DOWN),
 
-    Combo({Modifier.ALT, Modifier.SHIFT}, Key.COMMA): with_mark(Combo(Modifier.CONTROL, Key.HOME)),
-    Combo({Modifier.ALT, Modifier.SHIFT}, Key.DOT): with_mark(Combo(Modifier.CONTROL, Key.END)),
+    # Combo({Modifier.ALT, Modifier.SHIFT}, Key.COMMA): with_mark(Combo(Modifier.CONTROL, Key.HOME)),
+    # Combo({Modifier.ALT, Modifier.SHIFT}, Key.DOT): with_mark(Combo(Modifier.CONTROL, Key.END)),
 
-    Combo(Modifier.CONTROL, Key.J): Key.ENTER,
-    Combo(Modifier.CONTROL, Key.O): [Key.ENTER, Key.LEFT],
+    # Combo(Modifier.CONTROL, Key.J): Key.ENTER,
+    # Combo(Modifier.CONTROL, Key.O): [Key.ENTER, Key.LEFT],
 
-    Combo(Modifier.CONTROL, Key.W): [Combo(Modifier.CONTROL, Key.X), set_mark(False)],
-    Combo(Modifier.ALT, Key.W): [Combo(Modifier.CONTROL, Key.C), set_mark(False)],
-    Combo(Modifier.CONTROL, Key.Y): [Combo(Modifier.CONTROL, Key.V), set_mark(False)],
+    # Combo(Modifier.CONTROL, Key.W): [Combo(Modifier.CONTROL, Key.X), set_mark(False)],
+    # Combo(Modifier.ALT, Key.W): [Combo(Modifier.CONTROL, Key.C), set_mark(False)],
+    # Combo(Modifier.CONTROL, Key.Y): [Combo(Modifier.CONTROL, Key.V), set_mark(False)],
 
-    Combo(Modifier.CONTROL, Key.D): [Key.DELETE, set_mark(False)],
-    Combo(Modifier.ALT, Key.D): [Combo(Modifier.CONTROL, Key.DELETE), set_mark(False)],
+    # Combo(Modifier.CONTROL, Key.D): [Key.DELETE, set_mark(False)],
+    # Combo(Modifier.ALT, Key.D): [Combo(Modifier.CONTROL, Key.DELETE), set_mark(False)],
 
-    Combo(Modifier.CONTROL, Key.K): [Combo(Modifier.SHIFT, Key.END), Combo(Modifier.CONTROL, Key.X), set_mark(False)],
+    # Combo(Modifier.CONTROL, Key.K): [Combo(Modifier.SHIFT, Key.END), Combo(Modifier.CONTROL, Key.X), set_mark(False)],
 
-    Combo(Modifier.CONTROL, Key.SLASH): [Combo(Modifier.CONTROL, Key.Z), set_mark(False)],
+    # Combo(Modifier.CONTROL, Key.SLASH): [Combo(Modifier.CONTROL, Key.Z), set_mark(False)],
 
-    Combo(Modifier.CONTROL, Key.SPACE): set_mark(True),
+    # Combo(Modifier.CONTROL, Key.SPACE): set_mark(True),
 
-    Combo(Modifier.CONTROL, Key.S): Key.F3,
-    Combo(Modifier.CONTROL, Key.R): Combo(Modifier.SHIFT, Key.F3),
-    Combo({Modifier.ALT, Modifier.SHIFT}, Key.KEY_5): Combo(Modifier.CONTROL, Key.H),
+    # Combo(Modifier.CONTROL, Key.S): Key.F3,
+    # Combo(Modifier.CONTROL, Key.R): Combo(Modifier.SHIFT, Key.F3),
+    # Combo({Modifier.ALT, Modifier.SHIFT}, Key.KEY_5): Combo(Modifier.CONTROL, Key.H),
 
-    Combo(Modifier.CONTROL, Key.G): [Key.ESC, set_mark(False)],
+    # Combo(Modifier.CONTROL, Key.G): [Key.ESC, set_mark(False)],
 
-    Combo(Modifier.CONTROL, Key.X): Mode.CONTROL_X,
-    Combo(Modifier.CONTROL, Key.Q): Mode.CONTROL_Q
+    # Combo(Modifier.CONTROL, Key.X): Mode.CONTROL_X,
+    # Combo(Modifier.CONTROL, Key.Q): Mode.CONTROL_Q
+    Combo(None, Key.CAPSLOCK): Mode.CAPSLOCK_MOD
 }
 
 _CONTROL_X_MAP = {
@@ -112,6 +114,10 @@ _CONTROL_X_MAP = {
 }
 
 _CONTROL_Q_MAP = {}
+
+_CAPSLOCK_MOD_MAP = {
+    Combo(None, Key.J): with_mark(Key.LEFT)
+}
 
 _mode_map = _GLOBAL_MAP
 
